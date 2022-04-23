@@ -5,9 +5,17 @@
 
 /**
  *
- * @author Ashray Gattani
+ * @author Vairag Parikh
  */
-public class customer extends javax.swing.JFrame {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.ResultSet;
+
+public class customer extends javax.swing.JFrame{
 
     /**
      * Creates new form customer
@@ -15,6 +23,16 @@ public class customer extends javax.swing.JFrame {
     public customer() {
         initComponents();
     }
+    
+    Connection con;
+    PreparedStatement ps;
+    PreparedStatement ps1;
+    PreparedStatement ps2;
+    
+    PreparedStatement ps3;
+    
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,33 +44,502 @@ public class customer extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        sendername = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        senderphn = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        senderadd = new javax.swing.JTextArea();
+        senderpin = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        recname = new javax.swing.JTextField();
+        recphone = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        recadd = new javax.swing.JTextArea();
+        recpin = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        prodcombo = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        weight = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jButton2 = new javax.swing.JButton();
+        goback = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAutoRequestFocus(false);
+        setBackground(new java.awt.Color(26, 34, 56));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setForeground(new java.awt.Color(26, 34, 56));
 
-        jLabel1.setText("cust window");
+        jPanel1.setBackground(new java.awt.Color(26, 34, 56));
+
+        sendername.setForeground(new java.awt.Color(26, 34, 56));
+        sendername.setText("Name");
+        sendername.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sendernameMouseClicked(evt);
+            }
+        });
+        sendername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendernameActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 106, 61));
+        jLabel1.setText("Please fill this  information ");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        jLabel3.setBackground(new java.awt.Color(26, 34, 56));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 106, 61));
+        jLabel3.setText("Sender's Information");
+
+        senderphn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        senderphn.setForeground(new java.awt.Color(26, 34, 56));
+        senderphn.setText("Phone Number");
+        senderphn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                senderphnMouseClicked(evt);
+            }
+        });
+        senderphn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senderphnActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setForeground(new java.awt.Color(26, 34, 56));
+
+        senderadd.setColumns(20);
+        senderadd.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        senderadd.setRows(5);
+        senderadd.setText("Address_Field");
+        senderadd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                senderaddMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(senderadd);
+
+        senderpin.setForeground(new java.awt.Color(26, 34, 56));
+        senderpin.setText("Pin Code");
+        senderpin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                senderpinMouseClicked(evt);
+            }
+        });
+        senderpin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senderpinActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setBackground(new java.awt.Color(26, 34, 56));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 106, 61));
+        jLabel4.setText("Receiver's Information");
+
+        recname.setForeground(new java.awt.Color(26, 34, 56));
+        recname.setText("Name");
+        recname.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                recnameMouseClicked(evt);
+            }
+        });
+        recname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recnameActionPerformed(evt);
+            }
+        });
+
+        recphone.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        recphone.setForeground(new java.awt.Color(26, 34, 56));
+        recphone.setText("Phone Number");
+        recphone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                recphoneMouseClicked(evt);
+            }
+        });
+        recphone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recphoneActionPerformed(evt);
+            }
+        });
+
+        jScrollPane3.setForeground(new java.awt.Color(26, 34, 56));
+
+        recadd.setColumns(20);
+        recadd.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        recadd.setRows(5);
+        recadd.setText("Address_Field");
+        recadd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                recaddMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(recadd);
+
+        recpin.setForeground(new java.awt.Color(26, 34, 56));
+        recpin.setText("Pin Code");
+        recpin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                recpinMouseClicked(evt);
+            }
+        });
+        recpin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recpinActionPerformed(evt);
+            }
+        });
+
+        jSeparator1.setForeground(new java.awt.Color(26, 34, 56));
+
+        prodcombo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        prodcombo.setForeground(new java.awt.Color(26, 34, 56));
+        prodcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fragile Items", "Letter", "Other Items" }));
+        prodcombo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        prodcombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prodcomboActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 106, 61));
+        jLabel2.setText("Package Information");
+
+        weight.setForeground(new java.awt.Color(26, 34, 56));
+        weight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                weightActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setBackground(new java.awt.Color(255, 106, 61));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 106, 61));
+        jLabel5.setText("Enter Package Weight (in Gms)");
+
+        jCheckBox1.setBackground(new java.awt.Color(26, 34, 56));
+        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCheckBox1.setForeground(new java.awt.Color(255, 106, 61));
+        jCheckBox1.setText("Do you want to insure your item ? ");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 106, 61));
+        jButton2.setText("SUBMIT");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        goback.setBackground(new java.awt.Color(255, 255, 255));
+        goback.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        goback.setForeground(new java.awt.Color(255, 106, 61));
+        goback.setText("<-Go Back");
+        goback.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gobackMouseClicked(evt);
+            }
+        });
+        goback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gobackActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setForeground(new java.awt.Color(255, 51, 102));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(senderphn, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sendername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(senderpin, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(recname)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                    .addComponent(recpin)
+                    .addComponent(recphone))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 76, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(337, 337, 337))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(168, 168, 168))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(weight, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))
+                                        .addComponent(prodcombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGap(192, 192, 192))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(55, 55, 55)))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(183, 183, 183)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(149, 149, 149))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(goback)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(283, 283, 283))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(267, 267, 267))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(goback, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(recname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sendername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(senderphn, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(recphone))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(senderpin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(recpin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(43, 43, 43)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(prodcombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(weight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(jCheckBox1)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)))
+                .addComponent(jButton2)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(339, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void sendernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sendernameActionPerformed
+
+    private void senderphnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senderphnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_senderphnActionPerformed
+
+    private void prodcomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prodcomboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_prodcomboActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void recnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_recnameActionPerformed
+
+    private void recphoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recphoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_recphoneActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        summary sum = new summary();
+        sum.setVisible(true);
+        sum.pack();
+        customer cust = new customer();
+        this.dispose();
+        String senderName = sendername.getText();
+        String senderPhn = senderphn.getText();
+        String senderAdd = senderadd.getText();
+        String senderPin = senderpin.getText();
+        String recName = recname.getText();
+        String recPhn = recphone.getText();
+        String recAdd = recadd.getText();
+        String recPin = recpin.getText();
+        String weightt = weight.getText();    
+        
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javadb?user=root&password=Ashray80@");
+            ps = con.prepareStatement("insert into sender(sname,sphone,sadd,spincode) values(?,?,?,?)");
+            ps.setString(1, senderName);
+            ps.setString(2, senderPhn);
+            ps.setString(3, senderAdd);
+            ps.setString(4, senderPin);
+            
+            ps1 = con.prepareStatement("insert into receiver(rname,rphone,radd,rpincode) values(?,?,?,?)");
+            ps1.setString(1, recName);
+            ps1.setString(2, recPhn);
+            ps1.setString(3, recAdd);
+            ps1.setString(4, recPin);
+            
+            ps2 = con.prepareStatement("Insert into ordertable(order_date) values(curdate())");
+            
+            ps3 = con.prepareStatement("insert into product(producttype,weight) values(?,?)");
+            
+            String value = prodcombo.getSelectedItem().toString();
+            ps3.setString(1,value);
+            ps3.setString(2,weightt);
+           
+            ps.executeUpdate();
+            ps1.executeUpdate();
+            ps2.executeUpdate();
+            ps3.executeUpdate();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(customer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void recpinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recpinActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_recpinActionPerformed
+
+    private void senderpinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senderpinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_senderpinActionPerformed
+
+    private void weightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weightActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_weightActionPerformed
+
+    private void sendernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sendernameMouseClicked
+        // TODO add your handling code here:
+        sendername.setText("");
+    }//GEN-LAST:event_sendernameMouseClicked
+
+    private void recnameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_recnameMouseClicked
+        // TODO add your handling code here:
+        recname.setText("");
+    }//GEN-LAST:event_recnameMouseClicked
+
+    private void senderphnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_senderphnMouseClicked
+        // TODO add your handling code here:
+        senderphn.setText("");
+        
+    }//GEN-LAST:event_senderphnMouseClicked
+
+    private void recphoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_recphoneMouseClicked
+        // TODO add your handling code here:
+        recphone.setText("");
+    }//GEN-LAST:event_recphoneMouseClicked
+
+    private void senderaddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_senderaddMouseClicked
+        // TODO add your handling code here:
+        senderadd.setText("");
+    }//GEN-LAST:event_senderaddMouseClicked
+
+    private void recaddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_recaddMouseClicked
+        // TODO add your handling code here
+        recadd.setText("");
+        
+    }//GEN-LAST:event_recaddMouseClicked
+
+    private void senderpinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_senderpinMouseClicked
+        // TODO add your handling code here:
+        senderpin.setText("");
+        
+    }//GEN-LAST:event_senderpinMouseClicked
+
+    private void recpinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_recpinMouseClicked
+        // TODO add your handling code here:
+        recpin.setText("");
+    }//GEN-LAST:event_recpinMouseClicked
+
+    private void gobackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gobackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gobackActionPerformed
+
+    private void gobackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gobackMouseClicked
+        // TODO add your handling code here:
+        project1 proj = new project1();
+        proj.setVisible(true);
+        proj.pack();
+        this.dispose();
+        
+    }//GEN-LAST:event_gobackMouseClicked
 
     /**
      * @param args the command line arguments
@@ -90,7 +577,29 @@ public class customer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton goback;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JComboBox<String> prodcombo;
+    private javax.swing.JTextArea recadd;
+    private javax.swing.JTextField recname;
+    private javax.swing.JTextField recphone;
+    private javax.swing.JTextField recpin;
+    private javax.swing.JTextArea senderadd;
+    private javax.swing.JTextField sendername;
+    private javax.swing.JTextField senderphn;
+    private javax.swing.JTextField senderpin;
+    private javax.swing.JTextField weight;
     // End of variables declaration//GEN-END:variables
 }
